@@ -1,0 +1,11 @@
+/vendor/*
+/node_modules/*
+.vs_code
+config_json
+public/.user.ini
+public/storage/*
+.env
+package-lock.json
+composer.lock
+.env.example
+storage/*
