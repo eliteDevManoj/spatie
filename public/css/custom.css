@@ -151,7 +151,7 @@ html::-webkit-scrollbar-thumb:hover {
     border-radius: 8px;
 }
 
-.preview-profile-update-card {
+.preview-profile-update-card, .preview-identity-proof-update-card {
     width: 100%;                  /* Ensure the card takes the full width available */
     max-width: 300px;             /* Set max width */
     height: auto;                 /* Allow height to scale based on image */

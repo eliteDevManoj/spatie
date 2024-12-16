@@ -19,9 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 
@@ -31,50 +28,65 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 
 Route::post('/login', [AuthController::class, 'authenticate']);
 
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
-Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
 
-Route::get('/roles', [RoleController::class, 'index'])->name('roles');
+Route::middleware(['auth'])->group( function() {
 
-Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 
-Route::post('/roles/create', [RoleController::class, 'add'])->name('roles.add');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/roles/edit', [RoleController::class, 'view'])->name('roles.view');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
-Route::put('/roles/update', [RoleController::class, 'update'])->name('roles.update');
+    /***************** roles ****************************** */
+        Route::get('/roles', [RoleController::class, 'index'])->name('roles');
 
-Route::delete('/roles/delete', [RoleController::class, 'delete'])->name('roles.delete');
+        Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
 
+        Route::post('/roles/create', [RoleController::class, 'add'])->name('roles.add');
 
+        Route::get('/roles/edit', [RoleController::class, 'view'])->name('roles.view');
 
-Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions');
+        Route::put('/roles/update', [RoleController::class, 'update'])->name('roles.update');
 
-Route::get('/permissions/create', [PermissionController::class, 'create'])->name('permissions.create');
-
-Route::post('/permissions/create', [PermissionController::class, 'add'])->name('permissions.add');
-
-Route::get('/permissions/edit', [PermissionController::class, 'view'])->name('permissions.view');
-
-Route::put('/permissions/update', [PermissionController::class, 'update'])->name('permissions.update');
-
-Route::delete('/permissions/delete', [PermissionController::class, 'delete'])->name('permissions.delete');
+        Route::delete('/roles/delete', [RoleController::class, 'delete'])->name('roles.delete');
+    /***************** roles ****************************** */
 
 
+    /**************** permissions *************************/
+        Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions');
 
-Route::get('/users', [UserController::class, 'index'])->name('users');
+        Route::get('/permissions/create', [PermissionController::class, 'create'])->name('permissions.create');
 
-Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/permissions/create', [PermissionController::class, 'add'])->name('permissions.add');
 
-Route::post('/users/create', [UserController::class, 'store'])->name('users.store');
+        Route::get('/permissions/edit', [PermissionController::class, 'view'])->name('permissions.view');
 
-Route::get('/users/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/permissions/update', [PermissionController::class, 'update'])->name('permissions.update');
 
-Route::put('/users/update', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/permissions/delete', [PermissionController::class, 'delete'])->name('permissions.delete');
+    /**************** permissions *************************/
+
+    
+    /***************** users *******************************/
+        Route::get('/users', [UserController::class, 'index'])->name('users');
+
+        Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+
+        Route::post('/users/create', [UserController::class, 'store'])->name('users.store');
+
+        Route::get('/users/edit', [UserController::class, 'edit'])->name('users.edit');
+
+        Route::put('/users/update', [UserController::class, 'update'])->name('users.update');
+    /***************** users *******************************/
 
 
-/** Test Units */
+    
+    /** Test Units */
+        Route::get('/fake/users', [TestController::class, 'fakeUsers'])->name('fake.users');
+});
 
-Route::get('/fake/users', [TestController::class, 'fakeUsers'])->name('fake.users');
+
+
+
+

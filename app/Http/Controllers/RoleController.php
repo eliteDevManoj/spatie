@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -13,11 +12,6 @@ class RoleController extends Controller
 {
     public function index(){
         
-        if(!Auth::check()){
-
-            return redirect()->route('login');
-        }
-
         $roles = Role::get();
 
         return view('admin.roles.index', ['roles' => $roles]);
@@ -25,11 +19,6 @@ class RoleController extends Controller
 
     public function create(){
 
-        if(!Auth::check()){
-
-            return redirect()->route('login');
-        }
-        
         return view('admin.roles.create');
     }
 

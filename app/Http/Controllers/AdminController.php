@@ -12,26 +12,23 @@ class AdminController extends Controller
 {
     public function dashboard(Request $request){
 
-        if(Auth::check()){
+        $user = Auth::user();
 
-            $user = Auth::user();
+        $userRoles = $user->getRoleNames();
 
-            $userRoles = $user->getRoleNames();
+        $roles = Role::get();
 
-            $roles = Role::get();
+        $permissions = Permission::get();
 
-            $permissions = Permission::get();
+        $users = User::get();
 
-            $users = User::get();
-
-            return view('admin.dashboard', [
-                'user' => $user,
-                'userRoles' => $userRoles,
-                'roles' => $roles,
-                'permissions' => $permissions,
-                'users' => $users
-            ]);
-        }
+        return view('admin.dashboard', [
+            'user' => $user,
+            'userRoles' => $userRoles,
+            'roles' => $roles,
+            'permissions' => $permissions,
+            'users' => $users
+        ]);
 
         return redirect()->route('login');
     }

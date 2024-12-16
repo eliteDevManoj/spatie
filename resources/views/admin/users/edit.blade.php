@@ -92,7 +92,7 @@
                                 <div class="card-body">
                                     <img 
                                         id="profile-image-update-preview" 
-                                        src="{{isset($user->profile_image) ? asset('storage').'/'.$user->profile_image : ''}}" 
+                                        src="{{isset($user->profile_image) ? asset('storage/'.$user->profile_image) : asset('storage/default-user.jpg')}}" 
                                         alt="Image Preview"
                                     >
                                 </div>
@@ -108,13 +108,33 @@
                             <div class="invalid-feedback">
                                 <strong>{{ $message }} </strong>
                             </div>
-                        @enderror
-                    </div>
+                            @enderror
+                        </div>
 
-                    <div class="col-sm-6">
-                       
+                        <div class="col-sm-6">
+                            <label for="role" class="col-form-label">Identity Proof</label>
+
+                            <div class="card preview-identity-proof-update-card">
+                                <div class="card-body">
+                                    <img 
+                                        src="{{asset('storage/pdf.png')}}" 
+                                        alt="Image Preview"
+                                    >
+                                </div>
+                            </div>
+                            <input 
+                                type="file" 
+                                class="form-control @error('identity_proof') is-invalid @enderror" 
+                                name="identity_proof" 
+                                accept=".pdf"
+                            />
+                            @error('identity_proof')
+                            <div class="invalid-feedback">
+                                <strong>{{ $message }} </strong>
+                            </div>
+                            @enderror
+                        </div>
                     </div>
-                </div>
 
 
                     <hr>
